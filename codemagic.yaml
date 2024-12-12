@@ -4,21 +4,13 @@ workflows:
     max_build_duration: 60  # Optional: Sets a maximum build duration (in minutes)
     steps:
       - name: Install dependencies
-        flutter: install
+        run: flutter pub get  # Run 'flutter pub get' to install dependencies
 
       - name: Build iOS for simulator
-        flutter: build
-        args:
-          ios:
-            configuration: Debug  # Use Debug for testing
-            simulator: true  # Target the iOS simulator (not a physical device)
-            target: "iPhone 13"  # Specify the simulator device, like iPhone 13
+        run: flutter build ios --debug --simulator --target=lib/main.dart  # Builds for simulator
 
       - name: Run tests
-        script: |
-          # Run Flutter tests if needed
-          flutter test
+        run: flutter test  # Run unit tests
 
       - name: Post-build step
-        script: |
-          echo "Build complete, you can now upload your app to testing services"
+        run: echo "Build complete, you can now upload your app to testing services"
