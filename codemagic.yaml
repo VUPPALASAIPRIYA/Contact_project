@@ -27,10 +27,16 @@ workflows:
             exit 1
           fi
 
-      - name: Make Runner.zip available for download
+      - name: Create artifact directory if not exists
+        script: |
+          echo "Checking if artifacts directory exists..."
+          mkdir -p $CM_BUILD_DIR/artifacts  # Create the artifacts directory if it doesn't exist
+
+      - name: Move Runner.zip to artifact directory
         script: |
           if [ -f build/ios/iphonesimulator/Runner.zip ]; then
-            mv build/ios/iphonesimulator/Runner.zip $CM_BUILD_DIR/artifacts
+            echo "Moving Runner.zip to artifacts..."
+            mv build/ios/iphonesimulator/Runner.zip $CM_BUILD_DIR/artifacts/
           else
             echo "Runner.zip not found. Skipping download step."
             exit 1
@@ -40,4 +46,4 @@ workflows:
         script: echo "Build complete. Check for Runner.zip in the artifacts section."
 
     artifacts:
-      - Runner.zip  # Add the artifact explicitly to the build configuration
+      - $CM_BUILD_DIR/artifacts/Runner.zip  # Specify the location of the artifact
