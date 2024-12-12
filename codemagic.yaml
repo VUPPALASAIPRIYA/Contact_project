@@ -1,19 +1,18 @@
-# This is a YAML configuration for a Codemagic workflow.
-# It defines a workflow named "ios_simulator_build" with several steps.
-
 workflows:
   ios_simulator_build:
     name: iOS Simulator Build
-    max_build_duration: 60 # Optional: Sets a maximum build duration (in minutes)
-    steps:
+    max_build_duration: 60  # Optional: Sets a maximum build duration (in minutes)
+    environment:
+      flutter: stable  # Specify the Flutter version to use (optional)
+    scripts:
       - name: Install dependencies
-        run: flutter pub get # Run 'flutter pub get' to install dependencies
+        script: flutter pub get  # Run 'flutter pub get' to install dependencies
 
       - name: Build iOS for simulator
-        run: flutter build ios --debug --simulator --target=lib/main.dart # Builds for simulator
+        script: flutter build ios --debug --simulator --target=lib/main.dart  # Builds for simulator
 
       - name: Run tests
-        run: flutter test # Run unit tests
+        script: flutter test  # Run unit tests
 
       - name: Post-build step
-        run: echo "Build complete, you can now upload your app to testing services"
+        script: echo "Build complete, you can now upload your app to testing services"
