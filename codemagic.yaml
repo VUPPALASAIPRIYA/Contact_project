@@ -30,11 +30,14 @@ workflows:
       - name: Make Runner.zip available for download
         script: |
           if [ -f build/ios/iphonesimulator/Runner.zip ]; then
-            mv build/ios/iphonesimulator/Runner.zip $CM_BUILD_DIR
+            mv build/ios/iphonesimulator/Runner.zip $CM_BUILD_DIR/artifacts
           else
             echo "Runner.zip not found. Skipping download step."
             exit 1
           fi
 
       - name: Post-build step
-        script: echo "Build complete. Check for Runner.zip in artifacts."
+        script: echo "Build complete. Check for Runner.zip in the artifacts section."
+
+    artifacts:
+      - Runner.zip  # Add the artifact explicitly to the build configuration
