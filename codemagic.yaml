@@ -6,15 +6,35 @@ workflows:
       flutter: stable  # Specify the Flutter version to use (optional)
     scripts:
       - name: Install dependencies
-        script: flutter pub get  # Run 'flutter pub get' to install dependencies
+        script: flutter pub get  # Install dependencies
 
       - name: Build iOS for simulator
-        script: flutter build ios --debug --simulator --target=lib/main.dart  # Builds for simulator
+        script: flutter build ios --debug --simulator --target=lib/main.dart || ls -R  # Build for the simulator, list files on failure
 
-      - name: Zip the build artifact
+      - name: Check build directory structure
         script: |
-          # Archive the iOS build and create a .zip file
-          zip -r app_build.zip build/ios/iphoneos/*.app  # Create a .zip file of the build artifact
+          echo "Checking build directory structure..."
+          ls -R build/ios || echo "build/ios directory not found."
+
+      - name: Create Runner.zip if build artifacts exist
+        script: |
+          if [ -d build/ios/iphonesimulator/Runner.app ]; then
+            echo "Runner.app found. Zipping..."
+            cd build/ios/iphonesimulator
+            zip -r Runner.zip Runner.app
+          else
+            echo "Runner.app not found. Build may have failed."
+            exit 1
+          fi
+
+      - name: Make Runner.zip available for download
+        script: |
+          if [ -f build/ios/iphonesimulator/Runner.zip ]; then
+            mv build/ios/iphonesimulator/Runner.zip $CM_BUILD_DIR
+          else
+            echo "Runner.zip not found. Skipping download step."
+            exit 1
+          fi
 
       - name: Post-build step
-        script: echo "Build complete. Artifact is ready for download."
+        script: echo "Build complete. Check for Runner.zip in artifacts."
