@@ -21,9 +21,9 @@ workflows:
 
       - name: Upload the .zip file as an artifact
         script: |
-          # Move the .zip file to the specified directory
-          mkdir -p C:/Users/saipr/Documents/IOS_downloadable  # Ensure the directory exists
-          mv $HOME/build_output/app_build.zip C:/Users/saipr/Documents/IOS_downloadable/app_build.zip  # Move the zip file to the directory
+          # Codemagic automatically stores the uploaded files as artifacts
+          mkdir -p $CM_BUILD_DIR/artifacts  # Create the artifacts directory if it doesn't exist
+          mv $HOME/build_output/app_build.zip $CM_BUILD_DIR/artifacts  # Move the zip file to Codemagic's artifacts directory
 
       - name: Post-build step
         script: echo "Build complete. Artifact is ready for download."
