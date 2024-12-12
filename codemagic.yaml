@@ -15,15 +15,15 @@ workflows:
         script: |
           # Archive the iOS build and create a .zip file
           mkdir -p $HOME/build_output
-          cp -r build/ios/iphoneos/*.app $HOME/build_output
+          cp -r build/ios/iphoneos/*.app $HOME/build_output  # Copy .app file to output folder
           cd $HOME/build_output
           zip -r app_build.zip .  # Create a .zip file of the build artifact
 
       - name: Upload the .zip file as an artifact
         script: |
-          # Upload the .zip file to Codemagic for downloading
-          mkdir -p $CM_BUILD_DIR/artifacts
-          mv $HOME/build_output/app_build.zip $CM_BUILD_DIR/artifacts
+          # Move the .zip file to the specified directory
+          mkdir -p C:/Users/saipr/Documents/IOS_downloadable  # Ensure the directory exists
+          mv $HOME/build_output/app_build.zip C:/Users/saipr/Documents/IOS_downloadable/app_build.zip  # Move the zip file to the directory
 
       - name: Post-build step
         script: echo "Build complete. Artifact is ready for download."
