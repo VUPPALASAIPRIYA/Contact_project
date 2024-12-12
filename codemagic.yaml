@@ -19,8 +19,6 @@ workflows:
           # Run Flutter tests if needed
           flutter test
 
-    # Optionally, add post-build scripts or additional steps if needed
-    post_build:
       - name: Post-build step
         script: |
           echo "Build complete, you can now upload your app to testing services"
