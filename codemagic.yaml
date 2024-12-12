@@ -11,5 +11,19 @@ workflows:
       - name: Build iOS for simulator
         script: flutter build ios --debug --simulator --target=lib/main.dart  # Builds for simulator
 
+      - name: Zip the build artifact
+        script: |
+          # Archive the iOS build and create a .zip file
+          mkdir -p $HOME/build_output
+          cp -r build/ios/iphoneos/*.app $HOME/build_output
+          cd $HOME/build_output
+          zip -r app_build.zip .  # Create a .zip file of the build artifact
+
+      - name: Upload the .zip file as an artifact
+        script: |
+          # Upload the .zip file to Codemagic for downloading
+          mkdir -p $CM_BUILD_DIR/artifacts
+          mv $HOME/build_output/app_build.zip $CM_BUILD_DIR/artifacts
+
       - name: Post-build step
-        script: echo "Build complete, you can now upload your app to testing services"
+        script: echo "Build complete. Artifact is ready for download."
