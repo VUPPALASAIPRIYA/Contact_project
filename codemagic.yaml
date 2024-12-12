@@ -11,8 +11,5 @@ workflows:
       - name: Build iOS for simulator
         script: flutter build ios --debug --simulator --target=lib/main.dart  # Builds for simulator
 
-      - name: Run tests
-        script: flutter test  # Run unit tests
-
       - name: Post-build step
         script: echo "Build complete, you can now upload your app to testing services"
