@@ -14,11 +14,7 @@ workflows:
       - name: Zip the build artifact
         script: |
           # Archive the iOS build and create a .zip file
-          zip -r app_build.zip .  # Create a .zip file of the build artifact
-
-      - name: Upload the .zip file as an artifact
-        script: |
-          
+          zip -r app_build.zip build/ios/iphoneos/*.app  # Create a .zip file of the build artifact
 
       - name: Post-build step
         script: echo "Build complete. Artifact is ready for download."
