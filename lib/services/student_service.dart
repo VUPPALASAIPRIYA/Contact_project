@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class StudentService {
-  static const String baseUrl = "http://127.0.0.1:5000";
+  static const String baseUrl = "http://10.0.2.2:5000";
 
   static Future<Map<String, dynamic>?> fetchStudentData(String studentId) async {
     try {

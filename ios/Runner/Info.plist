@@ -46,19 +46,19 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 
-	<!-- New Scene Configuration -->
 	<key>UISceneConfigurations</key>
-	<dict>
-		<key>UIWindowSceneSessionRoleApplication</key>
-		<array>
-			<dict>
-				<key>UISceneConfigurationName</key>
-				<string>Default Configuration</string>
-				<key>UISceneDelegateClassName</key>
-				<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
-			</dict>
-		</array>
-	</dict>
+    <dict>
+        <key>UIWindowSceneSessionRoleApplication</key>
+        <array>
+            <dict>
+                <key>UISceneConfigurationName</key>
+                <string>Default Configuration</string>
+                <key>UISceneDelegateClassName</key>
+                <string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+            </dict>
+        </array>
+    </dict>
+
 
     <key>NSAppTransportSecurity</key>
     <dict>
